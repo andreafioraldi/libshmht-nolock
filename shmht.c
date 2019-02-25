@@ -2,6 +2,7 @@
 #include "shmht_private.h"
 #include "shmht_debug.h"
 #include <limits.h>
+#include <string.h>
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -330,7 +331,7 @@ compareBinaryKeys (size_t sk1, void *k1, size_t sk2, void *k2)
 	if (sk1 != sk2)
 		return 1;
 
-	return bcmp (k1, k2, sk1);
+	return memcmp (k1, k2, sk1);
 }								// compareBinaryKeys
 
 /*****************************************************************************/
@@ -473,7 +474,6 @@ __shmht_remove__ (struct shmht *h, void *k, size_t key_size)
 int
 shmht_remove (struct shmht *h, void *k, size_t key_size)
 {
-	struct internal_hashtable *iht = h->internal_ht;
 	int retValue = __shmht_remove__ (h, k, key_size);
 	return retValue;
 }								// hashtable_remove
